@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "361356096694",
+    "project_id": "superstore-396fc",
+    "storage_bucket": "superstore-396fc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:361356096694:android:0510d7a0b451809a3a6217",
+        "android_client_info": {
+          "package_name": "com.superstore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "361356096694-mlgqdeoegpho0cp1ghq9d9t88ahmvhs6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.superstore",
+            "certificate_hash": "1ac0134a35524527d37928625e1e29a1204a1186"
+          }
+        },
+        {
+          "client_id": "361356096694-9t2d5c4937s1qcbk6no2mlbdajmjbv51.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAp9aAe1wfWFZ9xu-mT1e2JXXKa7LUWcpY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "361356096694-9t2d5c4937s1qcbk6no2mlbdajmjbv51.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
