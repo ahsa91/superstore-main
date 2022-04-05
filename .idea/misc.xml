@@ -14,8 +14,12 @@
         <entry key="..\:/dev/superstore-main/app/src/main/res/drawable/ic_launcher_background.xml" value="0.218" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.218" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.218" />
+        <entry key="..\:/dev/superstore-main/app/src/main/res/drawable/ic_vector_dashboard.xml" value="0.218" />
+        <entry key="..\:/dev/superstore-main/app/src/main/res/drawable/ic_vector_orders.xml" value="0.218" />
+        <entry key="..\:/dev/superstore-main/app/src/main/res/drawable/ic_vector_products.xml" value="0.218" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/drawable/ic_white_color_back_24dp.xml" value="0.218" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/drawable/user_image_background.xml" value="0.218" />
+        <entry key="..\:/dev/superstore-main/app/src/main/res/layout/activity_dashboard.xml" value="0.18659420289855072" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/layout/activity_forgot_password.xml" value="0.18659420289855072" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/layout/activity_login.xml" value="0.18659420289855072" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/layout/activity_main.xml" value="0.18659420289855072" />
@@ -26,6 +30,7 @@
         <entry key="..\:/dev/superstore-main/app/src/main/res/layout/fragment_dashboard.xml" value="0.18659420289855072" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/layout/fragment_home.xml" value="0.18659420289855072" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/layout/fragment_notifications.xml" value="0.18659420289855072" />
+        <entry key="..\:/dev/superstore-main/app/src/main/res/layout/fragment_products.xml" value="0.18659420289855072" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.218" />
       </map>

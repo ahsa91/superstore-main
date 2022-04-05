@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.superstore.R
 
-class HomeFragment : Fragment() {
+class ProductsFragment : Fragment() {
 
 
     /*private lateinit var homeViewModel: HomeViewModel*/
@@ -21,9 +21,9 @@ class HomeFragment : Fragment() {
         /*homeViewModel =
             ViewModelProviders.of(this).get(HomeViewModel::class.java)*/
 
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
+        val root = inflater.inflate(R.layout.fragment_products, container, false)
         val textView: TextView = root.findViewById(R.id.text_home)
-        textView.text = "This is home Fragment"
+        textView.text = "This is Products Fragment"
 
         /*homeViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
