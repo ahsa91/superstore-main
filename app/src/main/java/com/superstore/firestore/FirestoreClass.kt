@@ -13,6 +13,7 @@ import com.google.firebase.storage.StorageReference
 import com.superstore.models.User
 import com.superstore.ui.activities.LoginActivity
 import com.superstore.ui.activities.RegisterActivity
+import com.superstore.ui.activities.SettingsActivity
 import com.superstore.ui.activities.UserProfileActivity
 import com.superstore.utils.Constants
 
@@ -102,12 +103,20 @@ class FirestoreClass {
                         // Call a function of base activity for transferring the result to it.
                         activity.userLoggedInSuccess(user)
                     }
+
+                    is SettingsActivity ->{
+                        // Call a function of base activity for transferring the result to it.
+                        activity.userDetailsSuccess(user)
+                    }
                 }
             }
             .addOnFailureListener { e ->
                 // Hide the progress dialog if there is any error. And print the error in log.
                 when (activity) {
                     is LoginActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                    is SettingsActivity ->{
                         activity.hideProgressDialog()
                     }
                 }
