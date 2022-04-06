@@ -33,9 +33,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
 
     private var mUserProfileImageURL: String = ""
 
-    /**
-     * This function is auto created by Android when the Activity Class is created.
-     */
+
     override fun onCreate(savedInstanceState: Bundle?) {
         //This call the parent constructor
         super.onCreate(savedInstanceState)
@@ -261,7 +259,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
 
 
         // Redirect to the Main Screen after profile completion.
-        startActivity(Intent(this@UserProfileActivity, MainActivity::class.java))
+        startActivity(Intent(this@UserProfileActivity, DashboardActivity::class.java))
         finish()
     }
 
