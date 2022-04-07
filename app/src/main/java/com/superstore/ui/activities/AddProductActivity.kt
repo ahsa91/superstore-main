@@ -38,7 +38,7 @@ class AddProductActivity : BaseActivity(), View.OnClickListener {
         iv_add_update_product.setOnClickListener(this)
 
         // Assign the click event to submit button.
-        btn_submit.setOnClickListener(this)
+        btn_submit_add_product.setOnClickListener(this)
     }
 
     //setup action bar
@@ -81,16 +81,17 @@ class AddProductActivity : BaseActivity(), View.OnClickListener {
                     }
                 }
 
-                R.id.btn_submit -> {
+                R.id.btn_submit_add_product -> {
                     if (validateProductDetails()) {
+                        showErrorSnackBar("your product is valid",false)
 
-                        uploadProductImage()
+//                        uploadProductImage()
                     }
                 }
             }
         }
     }
-
+    //function to validate product detail entries
     private fun validateProductDetails(): Boolean {
         return when {
 
