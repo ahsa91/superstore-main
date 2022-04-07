@@ -72,6 +72,12 @@
     <string name="title_settings">Settings</string>
     <string name="btn_lbl_logout">Log out</string>
     <string name="title_edit_profile">Edit Profile</string>
+    <string name="action_add_product">Add Product</string>
+    <string name="title_add_product">Add Product</string>
+    <string name="et_hint_product_title">Please enter product title</string>
+    <string name="et_hint_product_quantity">Please enter product quantity</string>
+    <string name="et_hint_product_description">Please enter product description</string>
+    <string name="et_hint_product_price">Please enter product price(€)</string>
 
 
 </resources>
