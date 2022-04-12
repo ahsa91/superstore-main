@@ -2,6 +2,7 @@ package com.superstore.ui.activities
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -16,6 +17,9 @@ import com.superstore.R
 import com.superstore.utils.Constants
 import com.superstore.utils.GlideLoader
 import kotlinx.android.synthetic.main.activity_add_product.*
+import com.superstore.firestore.FirestoreClass
+import com.superstore.models.Product
+
 import java.io.IOException
 
 @Suppress("DEPRECATION")
@@ -83,9 +87,8 @@ class AddProductActivity : BaseActivity(), View.OnClickListener {
 
                 R.id.btn_submit_add_product -> {
                     if (validateProductDetails()) {
-                        showErrorSnackBar("your product is valid",false)
 
-//                        uploadProductImage()
+                        uploadProductImage()
                     }
                 }
             }
@@ -131,7 +134,16 @@ class AddProductActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    private fun uploadProductImage(){}
+    //upload image to firebase cloud storage
+    private fun uploadProductImage(){
+        showProgressDialog(resources.getString(R.string.please_wait))
+
+        FirestoreClass().uploadImageToCloudStorage(
+            this@AddProductActivity,
+            mSelectedImageFileUri,
+            Constants.PRODUCT_IMAGE
+        )
+    }
 
 
 
@@ -191,6 +203,53 @@ class AddProductActivity : BaseActivity(), View.OnClickListener {
                 e.printStackTrace()
             }
         }
+    }
+
+    //function to get the successful result of product image upload
+    fun imageUploadSuccess(imageURL: String) {
+
+        // Initialize the global image url variable.
+        mProductImageURL = imageURL
+
+        uploadProductDetails()
+    }
+
+    //a function to return the successful result of product upload function
+    fun productUploadSuccess() {
+
+        // Hide the progress dialog
+        hideProgressDialog()
+
+        Toast.makeText(
+            this@AddProductActivity,
+            resources.getString(R.string.product_uploaded_success_message),
+            Toast.LENGTH_SHORT
+        ).show()
+
+        finish()
+    }
+
+
+    //function to return the successful result of product upload
+    private fun uploadProductDetails() {
+
+        // Get the logged in username from the SharedPreferences that we have stored at a time of login.
+        val username =
+            this.getSharedPreferences(Constants.SUPERSTORE_PREFERENCES, Context.MODE_PRIVATE)
+                .getString(Constants.LOGGED_IN_USERNAME, "")!!
+
+        // Here we get the text from editText and trim the space
+        val product = Product(
+            FirestoreClass().getCurrentUserID(),
+            username,
+            et_product_title.text.toString().trim { it <= ' ' },
+            et_product_price.text.toString().trim { it <= ' ' },
+            et_product_description.text.toString().trim { it <= ' ' },
+            et_product_quantity.text.toString().trim { it <= ' ' },
+            mProductImageURL
+        )
+
+        FirestoreClass().uploadProductDetails(this@AddProductActivity, product)
     }
 
 }

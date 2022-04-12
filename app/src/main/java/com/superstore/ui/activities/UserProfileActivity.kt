@@ -132,7 +132,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
 
                             FirestoreClass().uploadImageToCloudStorage(
                                 this@UserProfileActivity,
-                                mSelectedImageFileUri
+                                mSelectedImageFileUri, Constants.USER_PROFILE_IMAGE
                             )
                         } else {
 
