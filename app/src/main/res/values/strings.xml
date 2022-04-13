@@ -91,5 +91,6 @@
 
     <string name="no_products_added_yet">No products added yet!</string>
     <string name="no_dashboard_item_found">No items found!</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
