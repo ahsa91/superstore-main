@@ -9,6 +9,7 @@ import com.superstore.R
 import com.superstore.models.Product
 import com.superstore.ui.activities.ProductDetailsActivity
 import com.superstore.ui.fragments.ProductsFragment
+import com.superstore.utils.Constants
 import com.superstore.utils.GlideLoader
 import kotlinx.android.synthetic.main.item_list_layout.view.*
 
@@ -16,6 +17,8 @@ open class MyProductsListAdapter(private val context: Context,
                                  private var list: ArrayList<Product>,
                                  private val fragment: ProductsFragment
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+
 
     //inflates item_list_layout
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -50,6 +53,10 @@ open class MyProductsListAdapter(private val context: Context,
             holder.itemView.setOnClickListener {
                 // Launch Product details screen.
                 val intent = Intent(context, ProductDetailsActivity::class.java)
+                context.startActivity(intent)
+                //pass product ID to product details screen via intent
+                intent.putExtra(Constants.EXTRA_PRODUCT_ID, model.product_id)
+                // END
                 context.startActivity(intent)
             }
         }
