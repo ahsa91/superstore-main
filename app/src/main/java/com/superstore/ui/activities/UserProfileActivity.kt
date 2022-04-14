@@ -259,10 +259,12 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
 
         // Here we get the text from editText and trim the space
         val mobileNumber = et_mobile_number.text.toString().trim { it <= ' ' }
-        val gender = if (rb_male.isChecked) {
+        val gender = if(rb_male.isChecked) {
             Constants.MALE
-        } else {
+        } else if(rb_female.isChecked) {
             Constants.FEMALE
+        } else{
+            Constants.NA
         }
 
         if (mUserProfileImageURL.isNotEmpty()) {

@@ -92,4 +92,6 @@
     <dimen name="dashboard_item_textSize">12sp</dimen>
     <dimen name="dashboard_item_price_marginTop">2dp</dimen>
 
+
+
 </resources>

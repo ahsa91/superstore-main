@@ -31,8 +31,7 @@ class DashboardFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
-        return root
+        return inflater.inflate(R.layout.fragment_dashboard, container, false)
     }
 
     //INFLATE dashboard_menu layout
@@ -43,8 +42,7 @@ class DashboardFragment : BaseFragment() {
 
     //function to direct user to settings activity upon
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-        when (id) {
+        when (item.itemId) {
 
             R.id.action_settings -> {
                 //direct user to settings activity upon selection

@@ -26,6 +26,7 @@ open class MyProductsListAdapter(private val context: Context,
         )
     }
 
+    //Binds each item in the ArrayList to a view
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val model = list[position]
 

@@ -203,6 +203,18 @@
                     android:text="@string/rb_lbl_female"
                     android:textColor="@drawable/drawable_gender_tab_text_color_selector"
                     android:textStyle="bold" />
+                <com.superstore.utils.MSPRadioButton
+                    android:id="@+id/rb_na"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/profile_radio_button_marginStartEnd"
+                    android:layout_weight="1"
+                    android:background="@drawable/drawable_gender_tab_selector"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="@string/rb_lbl_na"
+                    android:textColor="@drawable/drawable_gender_tab_text_color_selector"
+                    android:textStyle="bold" />
             </RadioGroup>
 
             <com.superstore.utils.MSPButton

@@ -32,6 +32,7 @@ object Constants {
     // Constant variables for Gender
     const val MALE: String = "Male"
     const val FEMALE: String = "Female"
+    const val NA: String="Not Applicable"
 
     // Firebase database field names
     const val MOBILE: String = "mobile"
