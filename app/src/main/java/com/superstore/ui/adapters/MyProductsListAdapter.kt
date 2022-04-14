@@ -1,11 +1,13 @@
 package com.superstore.ui.adapters
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.superstore.R
 import com.superstore.models.Product
+import com.superstore.ui.activities.ProductDetailsActivity
 import com.superstore.ui.fragments.ProductsFragment
 import com.superstore.utils.GlideLoader
 import kotlinx.android.synthetic.main.item_list_layout.view.*
@@ -43,6 +45,12 @@ open class MyProductsListAdapter(private val context: Context,
 
                 fragment.deleteProduct(model.product_id)
 
+            }
+            //user is taken ProductDetailsActivity layout of the product
+            holder.itemView.setOnClickListener {
+                // Launch Product details screen.
+                val intent = Intent(context, ProductDetailsActivity::class.java)
+                context.startActivity(intent)
             }
         }
     }
