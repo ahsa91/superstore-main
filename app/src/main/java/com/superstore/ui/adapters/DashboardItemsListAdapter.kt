@@ -14,6 +14,9 @@ open class DashboardItemsListAdapter(private val context: Context,
                                      private var list: ArrayList<Product>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    // A global variable for OnClickListener interface.
+    private var onClickListener: OnClickListener? = null
+
 
     //inflates item_dashboard_layout
 
@@ -49,6 +52,14 @@ open class DashboardItemsListAdapter(private val context: Context,
             )
             holder.itemView.tv_dashboard_item_title.text = model.title
             holder.itemView.tv_dashboard_item_price.text = "$${model.price}"
+
+
+            //Assign the on click event for item view and pass the required params in the on click function
+            holder.itemView.setOnClickListener {
+                if (onClickListener != null) {
+                    onClickListener!!.onClick(position, model)
+                }
+            }
         }
     }
 
@@ -60,4 +71,17 @@ open class DashboardItemsListAdapter(private val context: Context,
      * A ViewHolder describes an item view and metadata about its place within the RecyclerView.
      */
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
+
+
+    //onclick listner to show product details
+    interface OnClickListener {
+
+
+        fun onClick(position: Int, product: Product)
+
+    }
+    //function for OnClickListener where the Interface is the expected parameter and assigned to the global variable.
+    fun setOnClickListener(onClickListener: OnClickListener) {
+        this.onClickListener = onClickListener
+    }
 }

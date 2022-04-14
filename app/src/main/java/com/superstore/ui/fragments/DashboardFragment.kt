@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.superstore.R
 import com.superstore.firestore.FirestoreClass
 import com.superstore.models.Product
+import com.superstore.ui.activities.ProductDetailsActivity
 import com.superstore.ui.activities.SettingsActivity
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import com.superstore.ui.adapters.DashboardItemsListAdapter
-
-
+import com.superstore.utils.Constants
 
 
 class DashboardFragment : BaseFragment() {
@@ -82,6 +82,24 @@ class DashboardFragment : BaseFragment() {
 
             val adapter = DashboardItemsListAdapter(requireActivity(), dashboardItemsList)
             rv_dashboard_items.adapter = adapter
+
+            //define the onclick listener here that is defined in the adapter class and handle the click on an item in the base class.
+            adapter.setOnClickListener(object :
+                DashboardItemsListAdapter.OnClickListener {
+                override fun onClick(position: Int, product: Product) {
+                    //Launch the product details screen from the dashboard.
+                    val intent = Intent(context, ProductDetailsActivity::class.java)
+                    intent.putExtra(Constants.EXTRA_PRODUCT_ID, product.product_id)
+                    startActivity(intent)
+
+                }
+            })
+
+
+
+
+
+
         } else {
             rv_dashboard_items.visibility = View.GONE
             tv_no_dashboard_items_found.visibility = View.VISIBLE
