@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.fragment_products.*
 class ProductsFragment : BaseFragment() {
 
 
-    /*private lateinit var homeViewModel: HomeViewModel*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
