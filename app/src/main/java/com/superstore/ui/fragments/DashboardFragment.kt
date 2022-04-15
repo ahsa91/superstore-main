@@ -90,15 +90,12 @@ class DashboardFragment : BaseFragment() {
                     //Launch the product details screen from the dashboard.
                     val intent = Intent(context, ProductDetailsActivity::class.java)
                     intent.putExtra(Constants.EXTRA_PRODUCT_ID, product.product_id)
+                    //pass product owner id via intent(user id of person who posted the product
+                    intent.putExtra(Constants.EXTRA_PRODUCT_OWNER_ID, product.user_id)
                     startActivity(intent)
 
                 }
             })
-
-
-
-
-
 
         } else {
             rv_dashboard_items.visibility = View.GONE

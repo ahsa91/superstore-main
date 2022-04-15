@@ -56,7 +56,9 @@ open class MyProductsListAdapter(private val context: Context,
                 context.startActivity(intent)
                 //pass product ID to product details screen via intent
                 intent.putExtra(Constants.EXTRA_PRODUCT_ID, model.product_id)
-                // END
+                //pass product owner id via intent(user id of person who posted the product
+                intent.putExtra(Constants.EXTRA_PRODUCT_OWNER_ID, model.user_id)
+
                 context.startActivity(intent)
             }
         }

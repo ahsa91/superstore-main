@@ -3,6 +3,7 @@ package com.superstore.ui.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import com.superstore.R
 import com.superstore.firestore.FirestoreClass
 import com.superstore.models.Product
@@ -19,15 +20,27 @@ class ProductDetailsActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_details)
 
-        //print in log
         if (intent.hasExtra(Constants.EXTRA_PRODUCT_ID)) {
             mProductId =
                 intent.getStringExtra(Constants.EXTRA_PRODUCT_ID)!!
-            Log.i("Product Id", mProductId)
+        }
+
+        //Get the product owner id through intent
+        var productOwnerId: String = ""
+
+        if (intent.hasExtra(Constants.EXTRA_PRODUCT_OWNER_ID)) {
+            productOwnerId =
+                intent.getStringExtra(Constants.EXTRA_PRODUCT_OWNER_ID)!!
         }
 
         //call  setupActionBar()
         setupActionBar()
+        //if product owner id is the same as user ID then add to cart button doesn't show
+        if (FirestoreClass().getCurrentUserID() == productOwnerId) {
+            btn_add_to_cart.visibility = View.GONE
+        } else {
+            btn_add_to_cart.visibility = View.VISIBLE
+        }
         //retrieve product details when activity is launched
         getProductDetails()
 
@@ -67,6 +80,7 @@ class ProductDetailsActivity : BaseActivity() {
 
         tv_product_details_title.text = product.title
         tv_product_details_price.text = "$${product.price}"
+
         tv_product_details_description.text = product.description
         tv_product_details_stock_quantity.text = product.stock_quantity
     }
