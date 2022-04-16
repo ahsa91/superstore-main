@@ -51,7 +51,7 @@ open class DashboardItemsListAdapter(private val context: Context,
                 holder.itemView.iv_dashboard_item_image
             )
             holder.itemView.tv_dashboard_item_title.text = model.title
-            holder.itemView.tv_dashboard_item_price.text = "$${model.price}"
+            holder.itemView.tv_dashboard_item_price.text = "€${model.price}"
 
 
             //Assign the on click event for item view and pass the required params in the on click function

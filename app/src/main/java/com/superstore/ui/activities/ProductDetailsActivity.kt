@@ -1,5 +1,6 @@
 package com.superstore.ui.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -91,7 +92,7 @@ class ProductDetailsActivity : BaseActivity(),  View.OnClickListener {
         )
 
         tv_product_details_title.text = product.title
-        tv_product_details_price.text = "$${product.price}"
+        tv_product_details_price.text = "€${product.price}"
 
         tv_product_details_description.text = product.description
         tv_product_details_stock_quantity.text = product.stock_quantity
@@ -119,9 +120,13 @@ class ProductDetailsActivity : BaseActivity(),  View.OnClickListener {
         //iff add to cart button was clicked
         if (v != null) {
             when (v.id) {
-
+                //on click listner to add product to cart
                 R.id.btn_add_to_cart -> {
                     addToCart()
+                }
+                //click listner to send user to cart list activity
+                R.id.btn_go_to_cart->{
+                    startActivity(Intent(this@ProductDetailsActivity, CartListActivity::class.java))
                 }
             }
         }

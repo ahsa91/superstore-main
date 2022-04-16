@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.superstore.R
 import com.superstore.firestore.FirestoreClass
 import com.superstore.models.Product
+import com.superstore.ui.activities.CartListActivity
 import com.superstore.ui.activities.ProductDetailsActivity
 import com.superstore.ui.activities.SettingsActivity
 import kotlinx.android.synthetic.main.fragment_dashboard.*
@@ -47,6 +48,12 @@ class DashboardFragment : BaseFragment() {
             R.id.action_settings -> {
                 //direct user to settings activity upon selection
                 startActivity(Intent(activity, SettingsActivity::class.java))
+                return true
+            }
+
+            R.id.action_cart -> {
+                //direct user to cart upon click
+                startActivity(Intent(activity, CartListActivity::class.java))
                 return true
             }
         }

@@ -438,5 +438,54 @@ class FirestoreClass {
             }
     }
 
+    /**
+     * A function to get the cart items list from the cloud firestore.
+     *
+     * @param activity
+     */
+    fun getCartList(activity: Activity) {
+        // The collection name for PRODUCTS
+        mFireStore.collection(Constants.CART_ITEMS)
+            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+            .get() // Will get the documents snapshots.
+            .addOnSuccessListener { document ->
+
+                // Here we get the list of cart items in the form of documents.
+                Log.e(activity.javaClass.simpleName, document.documents.toString())
+
+                // Here we have created a new instance for Cart Items ArrayList.
+                val list: ArrayList<Cart> = ArrayList()
+
+                // A for loop as per the list of documents to convert them into Cart Items ArrayList.
+                //document is cart
+                for (i in document.documents) {
+
+                    val cartItem = i.toObject(Cart::class.java)!!
+                    cartItem.id = i.id
+
+                    list.add(cartItem)
+                }
+
+                // Notify the success result.
+
+                when (activity) {
+                    is CartListActivity -> {
+                        activity.successCartItemsList(list)
+                    }
+                }
+
+            }
+            .addOnFailureListener { e ->
+                // Hide the progress dialog if there is an error based on the activity instance.
+                when (activity) {
+                    is CartListActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                }
+
+                Log.e(activity.javaClass.simpleName, "Error while getting the cart list items.", e)
+            }
+    }
+
 
 }
