@@ -105,5 +105,7 @@
     <string name="lbl_product_description">Product Description</string>
     <string name="lbl_product_details_stock_quantity">Stock Quantity</string>
     <string name="btn_lbl_add_to_cart">Add to cart</string>
+    <string name="success_message_item_added_to_cart">Product is added to your cart</string>
+    <string name="btn_lbl_go_to_cart">Go to cart</string>
 
 </resources>

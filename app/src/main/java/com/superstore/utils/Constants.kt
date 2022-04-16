@@ -15,7 +15,10 @@ object Constants {
     // Firebase Constants
     // This  is used for the collection name for USERS.
     const val USERS: String = "users"
+    //This  is used for the collection name for products.
     const val PRODUCTS: String = "products"
+    //This  is used for the collection name for USERS.
+    const val CART_ITEMS: String = "cart_items"
 
     const val SUPERSTORE_PREFERENCES: String = "SuperstorePrefs"
     const val LOGGED_IN_USERNAME: String = "logged_in_username"
@@ -47,9 +50,14 @@ object Constants {
 
     const val USER_ID: String = "user_id"
 
+    const val PRODUCT_ID: String = "product_id"
+
     const val EXTRA_PRODUCT_ID: String = "extra_product_id"
     //product owner id
     const val EXTRA_PRODUCT_OWNER_ID: String = "extra_product_owner_id"
+    //constant variable for default cart quantity
+    const val DEFAULT_CART_QUANTITY: String = "1"
+
 
 
 
@@ -85,4 +93,6 @@ object Constants {
         return MimeTypeMap.getSingleton()
             .getExtensionFromMimeType(activity.contentResolver.getType(uri!!))
     }
+
+
 }
