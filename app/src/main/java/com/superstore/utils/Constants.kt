@@ -19,6 +19,8 @@ object Constants {
     const val PRODUCTS: String = "products"
     //This  is used for the collection name for USERS.
     const val CART_ITEMS: String = "cart_items"
+    //This  is used for the collection name for ADDRESSES
+    const val ADDRESSES: String = "addresses"
 
     const val SUPERSTORE_PREFERENCES: String = "SuperstorePrefs"
     const val LOGGED_IN_USERNAME: String = "logged_in_username"
@@ -64,6 +66,7 @@ object Constants {
     const val HOME: String = "Home"
     const val OFFICE: String = "Office"
     const val OTHER: String = "Other"
+
 
 
 

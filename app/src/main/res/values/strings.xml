@@ -140,4 +140,7 @@
     <string name="err_msg_please_enter_post_code">Please enter postcode.</string>
     <string name="err_msg_please_enter_other_details">Please enter other details.</string>
 
+    <string name="err_your_address_added_successfully">Your address is added successfully.</string>
+
+
 </resources>

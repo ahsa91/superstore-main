@@ -3,6 +3,8 @@ package com.superstore.ui.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.View
+import android.widget.Toast
 import com.superstore.R
 import com.superstore.firestore.FirestoreClass
 import com.superstore.models.Address
@@ -15,6 +17,20 @@ class AddEditAddressActivity : BaseActivity() {
         setContentView(R.layout.activity_add_edit_address)
         //call setupActionBar()
         setupActionBar()
+
+        //checked changelistner for address type
+        rg_type.setOnCheckedChangeListener { _, checkedId ->
+            if (checkedId == R.id.rb_other) {
+                til_other_details.visibility = View.VISIBLE
+            } else {
+                til_other_details.visibility = View.GONE
+            }
+        }
+
+        //onclick listner for submit button
+        btn_submit_address.setOnClickListener {
+            saveAddressToFirestore()
+        }
     }
     //action bar to press back
     private fun setupActionBar() {
@@ -111,7 +127,24 @@ class AddEditAddressActivity : BaseActivity() {
                 addressType,
                 otherDetails
             )
+            //call function to save address to firestore
+            FirestoreClass().addAddress(this@AddEditAddressActivity, addressModel)
+
 
         }
+    }
+
+    fun addUpdateAddressSuccess() {
+
+        // Hide progress dialog
+        hideProgressDialog()
+
+        Toast.makeText(
+            this@AddEditAddressActivity,
+            resources.getString(R.string.err_your_address_added_successfully),
+            Toast.LENGTH_SHORT
+        ).show()
+
+        finish()
     }
 }
