@@ -57,6 +57,9 @@ object Constants {
     const val EXTRA_PRODUCT_OWNER_ID: String = "extra_product_owner_id"
     //constant variable for default cart quantity
     const val DEFAULT_CART_QUANTITY: String = "1"
+    //constant variable for cart_quantity
+    const val CART_QUANTITY: String = "cart_quantity"
+
 
 
 

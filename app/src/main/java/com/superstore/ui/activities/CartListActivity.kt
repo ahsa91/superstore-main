@@ -1,18 +1,23 @@
 package com.superstore.ui.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.superstore.R
 import com.superstore.firestore.FirestoreClass
 import com.superstore.models.Cart
+import com.superstore.models.Product
 import com.superstore.ui.adapters.CartItemsListAdapter
 import kotlinx.android.synthetic.main.activity_cart_list.*
 
 //cart list activity of the app
 class CartListActivity : BaseActivity() {
+    //global variable for product list
+    private lateinit var mProductsList: ArrayList<Product>
+    // A global variable for the cart list items.
+    private lateinit var mCartListItems: ArrayList<Cart>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart_list)
@@ -39,8 +44,26 @@ class CartListActivity : BaseActivity() {
 
         // Hide progress dialog.
         hideProgressDialog()
+        //Compare the product id of product list with product id of cart items list
+        // and update the stock quantity in the cart items list from the latest product list.
+        for (product in mProductsList) {
+            for (cart in cartList) {
+                if (product.product_id == cart.product_id) {
 
-        if (cartList.size > 0) {
+                    cart.stock_quantity = product.stock_quantity
+
+                    if (product.stock_quantity.toInt() == 0){
+                        cart.cart_quantity = product.stock_quantity
+                    }
+                }
+            }
+        }
+        //Initialize the global variable of cart list items.
+        mCartListItems = cartList
+
+        //use the global variable of the cart list items as mCartListItems instead of cartLis
+
+        if (mCartListItems.size > 0) {
 
             rv_cart_items_list.visibility = View.VISIBLE
             ll_checkout.visibility = View.VISIBLE
@@ -49,17 +72,21 @@ class CartListActivity : BaseActivity() {
             rv_cart_items_list.layoutManager = LinearLayoutManager(this@CartListActivity)
             rv_cart_items_list.setHasFixedSize(true)
 
-            val cartListAdapter = CartItemsListAdapter(this@CartListActivity, cartList)
+            val cartListAdapter = CartItemsListAdapter(this@CartListActivity, mCartListItems)
             rv_cart_items_list.adapter = cartListAdapter
 
             var subTotal: Double = 0.0
 
-            for (item in cartList) {
+            //Calculate the subtotal based on the stock quantity.
+            for (item in mCartListItems) {
+                val availableQuantity = item.stock_quantity.toInt()
 
-                val price = item.price.toDouble()
-                val quantity = item.cart_quantity.toInt()
+                if (availableQuantity > 0) {
+                    val price = item.price.toDouble()
+                    val quantity = item.cart_quantity.toInt()
 
-                subTotal += (price * quantity)
+                    subTotal += (price * quantity)
+                }
             }
 
             tv_sub_total.text = "€$subTotal"
@@ -86,7 +113,7 @@ class CartListActivity : BaseActivity() {
     private fun getCartItemsList() {
 
         // Show the progress dialog.
-        showProgressDialog(resources.getString(R.string.please_wait))
+//        showProgressDialog(resources.getString(R.string.please_wait))
 
         FirestoreClass().getCartList(this@CartListActivity)
     }
@@ -94,6 +121,55 @@ class CartListActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
 
+        getProductList()
+    }
+
+    // START
+    /**
+     * A function to get the success result of product list.
+     *
+     * @param productsList
+     */
+    fun successProductsListFromFireStore(productsList: ArrayList<Product>) {
+
+        // Initialize the product list global variable once we have the product list.
+        // START
+        mProductsList = productsList
+        // END
+
+        //Once we have the latest product list from cloud firestore get the cart items list from cloud firestore.
+        // START
+        getCartItemsList()
+        // END
+    }
+    // END
+
+    private fun getProductList() {
+
+        // Show the progress dialog.
+        showProgressDialog(resources.getString(R.string.please_wait))
+
+        FirestoreClass().getAllProductsList(this@CartListActivity)
+    }
+    //function to notify user of deletion of a cart list
+    fun itemRemovedSuccess() {
+
+        hideProgressDialog()
+
+        Toast.makeText(
+            this@CartListActivity,
+            resources.getString(R.string.msg_item_removed_successfully),
+            Toast.LENGTH_SHORT
+        ).show()
+
         getCartItemsList()
     }
+    //function to notify user the item quantity updated in cart list
+    fun itemUpdateSuccess() {
+
+        hideProgressDialog()
+
+        getCartItemsList()
+    }
+
 }
