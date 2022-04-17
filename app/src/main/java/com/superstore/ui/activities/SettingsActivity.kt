@@ -25,6 +25,9 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
         btn_logout.setOnClickListener(this@SettingsActivity)
         //onclick event for edit profile
         tv_edit.setOnClickListener(this@SettingsActivity)
+        //onclick event to add address
+        ll_address.setOnClickListener(this@SettingsActivity)
+
     }
 
     //function to set up action bar
@@ -78,6 +81,12 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         if(v !=null){
             when(v.id){
+
+                //address list screen
+                R.id.ll_address -> {
+                    val intent = Intent(this@SettingsActivity, AddressListActivity::class.java)
+                    startActivity(intent)
+                }
                 //logout
                 R.id.btn_logout -> {
 
@@ -95,6 +104,8 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
                     intent.putExtra(Constants.EXTRA_USER_DETAILS, mUserDetails)
                     startActivity(intent)
                 }
+
+
             }
 
         }

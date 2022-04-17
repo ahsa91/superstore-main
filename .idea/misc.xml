@@ -23,9 +23,12 @@
         <entry key="..\:/dev/superstore-main/app/src/main/res/drawable/ic_white_color_back_24dp.xml" value="0.218" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/drawable/item_dashboard_background.xml" value="0.127" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/drawable/item_grey_border_background.xml" value="0.25" />
+        <entry key="..\:/dev/superstore-main/app/src/main/res/drawable/item_primary_color_border_background.xml" value="0.25" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/drawable/rv_item_image_background.xml" value="0.25" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/drawable/user_image_background.xml" value="0.218" />
+        <entry key="..\:/dev/superstore-main/app/src/main/res/layout/activity_add_edit_address.xml" value="0.4" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/layout/activity_add_product.xml" value="0.25416666666666665" />
+        <entry key="..\:/dev/superstore-main/app/src/main/res/layout/activity_address_list.xml" value="0.24452554744525548" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/layout/activity_cart_list.xml" value="0.25416666666666665" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/layout/activity_dashboard.xml" value="0.18659420289855072" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/layout/activity_forgot_password.xml" value="0.18659420289855072" />
