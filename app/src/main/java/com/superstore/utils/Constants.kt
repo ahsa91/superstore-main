@@ -60,6 +60,11 @@ object Constants {
     //constant variable for cart_quantity
     const val CART_QUANTITY: String = "cart_quantity"
 
+    //constants for address types
+    const val HOME: String = "Home"
+    const val OFFICE: String = "Office"
+    const val OTHER: String = "Other"
+
 
 
 
