@@ -3,15 +3,20 @@ package com.superstore.ui.activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.myshoppal.ui.adapters.AddressListAdapter
 import com.superstore.R
 import com.superstore.firestore.FirestoreClass
 import com.superstore.models.Address
+import com.superstore.utils.Constants
+import com.superstore.utils.SwipeToEditCallback
 import kotlinx.android.synthetic.main.activity_address_list.*
 
 //address list screen
 class AddressListActivity : BaseActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_address_list)
@@ -47,7 +52,6 @@ class AddressListActivity : BaseActivity() {
         // Hide the progress dialog
         hideProgressDialog()
 
-        //Populate the address list in the UI
         if (addressList.size > 0) {
 
             rv_address_list.visibility = View.VISIBLE
@@ -58,11 +62,30 @@ class AddressListActivity : BaseActivity() {
 
             val addressAdapter = AddressListAdapter(this@AddressListActivity, addressList)
             rv_address_list.adapter = addressAdapter
+
+
+            val editSwipeHandler = object : SwipeToEditCallback(this) {
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+
+
+                    val adapter = rv_address_list.adapter as AddressListAdapter
+                    adapter.notifyEditItem(
+                        this@AddressListActivity,
+                        viewHolder.adapterPosition
+                    )
+
+                }
+            }
+            val editItemTouchHelper = ItemTouchHelper(editSwipeHandler)
+            editItemTouchHelper.attachToRecyclerView(rv_address_list)
+            // END
         } else {
             rv_address_list.visibility = View.GONE
             tv_no_address_found.visibility = View.VISIBLE
         }
     }
+
+
 
     //function to get the list of address from cloud firestore
     private fun getAddressList() {

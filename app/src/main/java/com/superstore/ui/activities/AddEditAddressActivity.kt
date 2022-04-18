@@ -11,9 +11,18 @@ import com.superstore.utils.Constants
 import kotlinx.android.synthetic.main.activity_add_edit_address.*
 
 class AddEditAddressActivity : BaseActivity() {
+    // global variable for Address data model class to get the address details through intent to edit.
+    private var mAddressDetails: Address? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_edit_address)
+
+        //Receive the address details through intent and initialize the global variable
+        if (intent.hasExtra(Constants.EXTRA_ADDRESS_DETAILS)) {
+            mAddressDetails =
+                intent.getParcelableExtra(Constants.EXTRA_ADDRESS_DETAILS)!!
+        }
         //call setupActionBar()
         setupActionBar()
 

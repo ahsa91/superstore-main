@@ -1,13 +1,17 @@
 package com.myshoppal.ui.adapters
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.superstore.R
 import com.superstore.models.Address
+import com.superstore.ui.activities.AddEditAddressActivity
+import com.superstore.utils.Constants
 import kotlinx.android.synthetic.main.item_address_layout.view.*
 
 //Create an adapter class for AddressList adapter.
@@ -64,6 +68,23 @@ open class AddressListAdapter(
      */
     override fun getItemCount(): Int {
         return list.size
+    }
+
+    /**
+     * A function to edit the address details and pass the existing details through intent.
+     *
+     * @param activity
+     * @param position
+     */
+    fun notifyEditItem(activity: Activity, position: Int) {
+        val intent = Intent(context, AddEditAddressActivity::class.java)
+        // Pass the address details through intent to edit the address.
+        // START
+        intent.putExtra(Constants.EXTRA_ADDRESS_DETAILS, list[position])
+        // END
+        activity.startActivity(intent)
+
+        notifyItemChanged(position) // Notify any registered observers that the item at position has changed.
     }
 
     /**
