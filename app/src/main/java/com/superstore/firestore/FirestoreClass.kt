@@ -14,6 +14,7 @@ import com.google.firebase.storage.StorageReference
 import com.superstore.models.*
 import com.superstore.ui.activities.*
 import com.superstore.ui.fragments.DashboardFragment
+import com.superstore.ui.fragments.OrdersFragment
 import com.superstore.ui.fragments.ProductsFragment
 import com.superstore.utils.Constants
 
@@ -821,6 +822,39 @@ class FirestoreClass {
 
             Log.e(activity.javaClass.simpleName, "Error while updating all the details after order placed.", e)
         }
+    }
+
+    /**
+     * A function to get the list of orders from cloud firestore.
+     */
+    fun getMyOrdersList(fragment: OrdersFragment) {
+        mFireStore.collection(Constants.ORDERS)
+            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+            .get() // Will get the documents snapshots.
+            .addOnSuccessListener { document ->
+                Log.e(fragment.javaClass.simpleName, document.documents.toString())
+                val list: ArrayList<Order> = ArrayList()
+
+                for (i in document.documents) {
+
+                    val orderItem = i.toObject(Order::class.java)!!
+                    orderItem.id = i.id
+
+                    list.add(orderItem)
+                }
+
+                // Notify the success result to base class.
+                // START
+                fragment.populateOrdersListInUI(list)
+                // END
+            }
+            .addOnFailureListener { e ->
+                // Here call a function of base activity for transferring the result to it.
+
+                fragment.hideProgressDialog()
+
+                Log.e(fragment.javaClass.simpleName, "Error while getting the orders list.", e)
+            }
     }
 
 
