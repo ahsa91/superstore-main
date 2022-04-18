@@ -1,5 +1,6 @@
 package com.superstore.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -9,6 +10,7 @@ import com.superstore.firestore.FirestoreClass
 import com.superstore.models.Cart
 import com.superstore.models.Product
 import com.superstore.ui.adapters.CartItemsListAdapter
+import com.superstore.utils.Constants
 import kotlinx.android.synthetic.main.activity_cart_list.*
 
 //cart list activity of the app
@@ -23,6 +25,12 @@ class CartListActivity : BaseActivity() {
         setContentView(R.layout.activity_cart_list)
         //call setup actionbar
         setupActionBar()
+        //click event to the checkout button and proceed to the next screen
+        btn_checkout.setOnClickListener {
+            val intent = Intent(this@CartListActivity, AddressListActivity::class.java)
+            intent.putExtra(Constants.EXTRA_SELECT_ADDRESS, true)
+            startActivity(intent)
+        }
     }
     //back button function
     private fun setupActionBar() {

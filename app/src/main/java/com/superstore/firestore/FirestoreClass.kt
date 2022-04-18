@@ -694,6 +694,31 @@ class FirestoreClass {
                 )
             }
     }
+    /**
+     * A function to delete the existing address from the cloud firestore.
+     *
+     * @param activity Base class
+     * @param addressId existing address id
+     */
+    fun deleteAddress(activity: AddressListActivity, addressId: String) {
+
+        mFireStore.collection(Constants.ADDRESSES)
+            .document(addressId)
+            .delete()
+            .addOnSuccessListener {
+
+                // Here call a function of base activity for transferring the result to it.
+                activity.deleteAddressSuccess()
+            }
+            .addOnFailureListener { e ->
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while deleting the address.",
+                    e
+                )
+            }
+    }
 
 
 }
