@@ -1,14 +1,12 @@
 package com.superstore.ui.activities
 
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.superstore.R
 import com.superstore.firestore.FirestoreClass
-import kotlinx.android.synthetic.main.activity_splash.*
 
 @Suppress("DEPRECATION")
 class SplashActivity : AppCompatActivity() {

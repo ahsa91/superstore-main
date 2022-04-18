@@ -1,14 +1,17 @@
 package com.superstore.ui.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.myshoppal.ui.adapters.AddressListAdapter
 import com.superstore.R
+import com.superstore.firestore.FirestoreClass
+import com.superstore.models.Address
 import kotlinx.android.synthetic.main.activity_address_list.*
-import kotlinx.android.synthetic.main.activity_settings.*
 
 //address list screen
-class AddressListActivity : AppCompatActivity() {
+class AddressListActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_address_list)
@@ -20,6 +23,8 @@ class AddressListActivity : AppCompatActivity() {
             val intent = Intent(this@AddressListActivity, AddEditAddressActivity::class.java)
             startActivity(intent)
         }
+        //call   getAddressList()
+        getAddressList()
     }
 
     //function to set up action bar
@@ -34,5 +39,37 @@ class AddressListActivity : AppCompatActivity() {
         }
 
         toolbar_address_list_activity.setNavigationOnClickListener { onBackPressed() }
+    }
+
+    //function to get the success result of address list from cloud firestore
+    fun successAddressListFromFirestore(addressList: ArrayList<Address>) {
+
+        // Hide the progress dialog
+        hideProgressDialog()
+
+        //Populate the address list in the UI
+        if (addressList.size > 0) {
+
+            rv_address_list.visibility = View.VISIBLE
+            tv_no_address_found.visibility = View.GONE
+
+            rv_address_list.layoutManager = LinearLayoutManager(this@AddressListActivity)
+            rv_address_list.setHasFixedSize(true)
+
+            val addressAdapter = AddressListAdapter(this@AddressListActivity, addressList)
+            rv_address_list.adapter = addressAdapter
+        } else {
+            rv_address_list.visibility = View.GONE
+            tv_no_address_found.visibility = View.VISIBLE
+        }
+    }
+
+    //function to get the list of address from cloud firestore
+    private fun getAddressList() {
+
+        // Show the progress dialog.
+        showProgressDialog(resources.getString(R.string.please_wait))
+
+        FirestoreClass().getAddressesList(this@AddressListActivity)
     }
 }
