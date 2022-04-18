@@ -473,6 +473,10 @@ class FirestoreClass {
                     is CartListActivity -> {
                         activity.successCartItemsList(list)
                     }
+                    //Notify the success result of latest cart items list to checkout screen.
+                    is CheckoutActivity -> {
+                        activity.successCartItemsList(list)
+                    }
                 }
 
             }
@@ -482,14 +486,19 @@ class FirestoreClass {
                     is CartListActivity -> {
                         activity.hideProgressDialog()
                     }
+                    //Hide the progress dialog if there is an error based on the activity instance.
+                    is CheckoutActivity -> {
+                        activity.hideProgressDialog()
+                    }
                 }
 
                 Log.e(activity.javaClass.simpleName, "Error while getting the cart list items.", e)
             }
     }
-    //function to get all the product list from the cloud firestore.
 
-    fun getAllProductsList(activity: CartListActivity) {
+    //function to get all the product list from the cloud firestore.
+    fun getAllProductsList(activity: Activity) {
+        // END
         // The collection name for PRODUCTS
         mFireStore.collection(Constants.PRODUCTS)
             .get() // Will get the documents snapshots.
@@ -510,13 +519,31 @@ class FirestoreClass {
                     productsList.add(product)
                 }
 
+                when (activity) {
+                    is CartListActivity -> {
+                        activity.successProductsListFromFireStore(productsList)
+                    }
 
-                activity.successProductsListFromFireStore(productsList)
+                    // Notify the success result to the base class.
 
+                    is CheckoutActivity -> {
+                        activity.successProductsListFromFireStore(productsList)
+                    }
+
+                }
             }
             .addOnFailureListener { e ->
                 // Hide the progress dialog if there is any error based on the base class instance.
-                activity.hideProgressDialog()
+                when (activity) {
+                    is CartListActivity -> {
+                        activity.hideProgressDialog()
+                    }
+
+
+                    is CheckoutActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                }
 
                 Log.e("Get Product List", "Error while getting all product list.", e)
             }
