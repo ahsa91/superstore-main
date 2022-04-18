@@ -39,6 +39,35 @@ class AddEditAddressActivity : BaseActivity() {
         btn_submit_address.setOnClickListener {
             saveAddressToFirestore()
         }
+
+        //code for update details after swipe
+        if (mAddressDetails != null) {
+            if (mAddressDetails!!.id.isNotEmpty()) {
+
+                tv_title.text = resources.getString(R.string.title_edit_address)
+                btn_submit_address.text = resources.getString(R.string.btn_lbl_update)
+
+                et_full_name.setText(mAddressDetails?.name)
+                et_phone_number.setText(mAddressDetails?.mobileNumber)
+                et_address.setText(mAddressDetails?.address)
+                et_post_code.setText(mAddressDetails?.postCode)
+                et_additional_note.setText(mAddressDetails?.additionalNote)
+
+                when (mAddressDetails?.type) {
+                    Constants.HOME -> {
+                        rb_home.isChecked = true
+                    }
+                    Constants.OFFICE -> {
+                        rb_office.isChecked = true
+                    }
+                    else -> {
+                        rb_other.isChecked = true
+                        til_other_details.visibility = View.VISIBLE
+                        et_other_details.setText(mAddressDetails?.otherDetails)
+                    }
+                }
+            }
+        }
     }
     //action bar to press back
     private fun setupActionBar() {
@@ -135,24 +164,44 @@ class AddEditAddressActivity : BaseActivity() {
                 addressType,
                 otherDetails
             )
-            //call function to save address to firestore
-            FirestoreClass().addAddress(this@AddEditAddressActivity, addressModel)
 
+            //for updating address
+            if (mAddressDetails != null && mAddressDetails!!.id.isNotEmpty()) {
+                FirestoreClass().updateAddress(
+                    this@AddEditAddressActivity,
+                    addressModel,
+                    mAddressDetails!!.id
+                )
+            } else {
+                //call function to save address to firestore
+                FirestoreClass().addAddress(this@AddEditAddressActivity, addressModel)
+            }
 
         }
     }
 
+    /**
+     * A function to notify the success result of address saved.
+     */
     fun addUpdateAddressSuccess() {
 
         // Hide progress dialog
         hideProgressDialog()
 
+        val notifySuccessMessage: String = if (mAddressDetails != null && mAddressDetails!!.id.isNotEmpty()) {
+            resources.getString(R.string.msg_your_address_updated_successfully)
+        } else {
+            resources.getString(R.string.err_your_address_added_successfully)
+        }
+
         Toast.makeText(
             this@AddEditAddressActivity,
-            resources.getString(R.string.err_your_address_added_successfully),
+            notifySuccessMessage,
             Toast.LENGTH_SHORT
         ).show()
 
+        // Now se the result to OK.
+        setResult(RESULT_OK)
         finish()
     }
 }

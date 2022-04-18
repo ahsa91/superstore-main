@@ -28,6 +28,11 @@ class AddressListActivity : BaseActivity() {
             val intent = Intent(this@AddressListActivity, AddEditAddressActivity::class.java)
             startActivity(intent)
         }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         //call   getAddressList()
         getAddressList()
     }
