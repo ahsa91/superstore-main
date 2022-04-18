@@ -1,12 +1,14 @@
 package com.superstore.ui.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.superstore.R
 import com.superstore.firestore.FirestoreClass
 import com.superstore.models.Address
 import com.superstore.models.Cart
 import com.superstore.models.Product
+import com.superstore.ui.adapters.CartItemsListAdapter
 import com.superstore.utils.Constants
 import kotlinx.android.synthetic.main.activity_checkout.*
 
@@ -43,6 +45,7 @@ class CheckoutActivity : BaseActivity() {
             }
             tv_checkout_mobile_number.text = mAddressDetails?.mobileNumber
         }
+        getProductList()
     }
 
     /**
@@ -103,8 +106,58 @@ class CheckoutActivity : BaseActivity() {
         // Hide progress dialog.
         hideProgressDialog()
 
-        //Initialize the cart list
+        //Update the stock quantity in the cart list from the product list.
+        // START
+        for (product in mProductsList) {
+            for (cart in cartList) {
+                if (product.product_id == cart.product_id) {
+                    cart.stock_quantity = product.stock_quantity
+                }
+            }
+        }
+        // END
+
         mCartItemsList = cartList
+
+        //Populate the cart items in the UI.
+
+        rv_cart_list_items.layoutManager = LinearLayoutManager(this@CheckoutActivity)
+        rv_cart_list_items.setHasFixedSize(true)
+
+        //  Pass the required param.
+        val cartListAdapter = CartItemsListAdapter(this@CheckoutActivity, mCartItemsList, false)
+        rv_cart_list_items.adapter = cartListAdapter
+
+
+        //  Calculate the subtotal and Total Amount.
+
+        var subTotal: Double = 0.0
+
+        for (item in mCartItemsList) {
+
+            val availableQuantity = item.stock_quantity.toInt()
+
+            if (availableQuantity > 0) {
+                val price = item.price.toDouble()
+                val quantity = item.cart_quantity.toInt()
+
+                subTotal += (price * quantity)
+            }
+        }
+
+        tv_checkout_sub_total.text = "€$subTotal"
+        // Here we have kept Shipping Charge is fixed as $10 but in your case it may cary. Also, it depends on the location and total amount.
+        tv_checkout_shipping_charge.text = "€10.0"
+
+        if (subTotal > 0) {
+            ll_checkout_place_order.visibility = View.VISIBLE
+
+            val total = subTotal + 10
+            tv_checkout_total_amount.text = "€$total"
+        } else {
+            ll_checkout_place_order.visibility = View.GONE
+        }
+
     }
 
 

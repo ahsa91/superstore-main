@@ -18,7 +18,8 @@ import kotlinx.android.synthetic.main.item_cart_layout.view.*
 //adapter class for CartItemsList
 class CartItemsListAdapter(
     private val context: Context,
-    private var list: ArrayList<Cart>
+    private var list: ArrayList<Cart>,
+    private val updateCartItems: Boolean
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     //inflates item_cart_layout
@@ -34,7 +35,6 @@ class CartItemsListAdapter(
     }
     //inflate
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        //model is the cart item
         val model = list[position]
 
         if (holder is MyViewHolder) {
@@ -45,10 +45,18 @@ class CartItemsListAdapter(
             holder.itemView.tv_cart_item_price.text = "€${model.price}"
             holder.itemView.tv_cart_quantity.text = model.cart_quantity
 
-            //Show the text Out of Stock when cart quantity is zero.
             if (model.cart_quantity == "0") {
                 holder.itemView.ib_remove_cart_item.visibility = View.GONE
                 holder.itemView.ib_add_cart_item.visibility = View.GONE
+
+                // Update the UI components as per the param.
+
+                if (updateCartItems) {
+                    holder.itemView.ib_delete_cart_item.visibility = View.VISIBLE
+                } else {
+                    holder.itemView.ib_delete_cart_item.visibility = View.GONE
+                }
+
 
                 holder.itemView.tv_cart_quantity.text =
                     context.resources.getString(R.string.lbl_out_of_stock)
@@ -60,8 +68,20 @@ class CartItemsListAdapter(
                     )
                 )
             } else {
-                holder.itemView.ib_remove_cart_item.visibility = View.VISIBLE
-                holder.itemView.ib_add_cart_item.visibility = View.VISIBLE
+
+               // Update the UI components as per the param.
+
+                if (updateCartItems) {
+                    holder.itemView.ib_remove_cart_item.visibility = View.VISIBLE
+                    holder.itemView.ib_add_cart_item.visibility = View.VISIBLE
+                    holder.itemView.ib_delete_cart_item.visibility = View.VISIBLE
+                } else {
+
+                    holder.itemView.ib_remove_cart_item.visibility = View.GONE
+                    holder.itemView.ib_add_cart_item.visibility = View.GONE
+                    holder.itemView.ib_delete_cart_item.visibility = View.GONE
+                }
+
 
                 holder.itemView.tv_cart_quantity.setTextColor(
                     ContextCompat.getColor(
@@ -71,22 +91,8 @@ class CartItemsListAdapter(
                 )
             }
 
-            // Assign the onclick event to the ib_delete_cart_item.
-            holder.itemView.ib_delete_cart_item.setOnClickListener {
-
-                //Call the firestore class function to remove the item from cloud firestore.
-                // START
-
-                when (context) {
-                    is CartListActivity -> {
-                        context.showProgressDialog(context.resources.getString(R.string.please_wait))
-                    }
-                }
-
-                FirestoreClass().removeItemFromCart(context, model.id)
-            }
-            //Assign the click event to the ib_remove_cart_item
             holder.itemView.ib_remove_cart_item.setOnClickListener {
+
                 if (model.cart_quantity == "1") {
                     FirestoreClass().removeItemFromCart(context, model.id)
                 } else {
@@ -106,8 +112,9 @@ class CartItemsListAdapter(
                     FirestoreClass().updateMyCart(context, model.id, itemHashMap)
                 }
             }
-            //Assign the click event to the ib_add_cart_item
+
             holder.itemView.ib_add_cart_item.setOnClickListener {
+
                 val cartQuantity: Int = model.cart_quantity.toInt()
 
                 if (cartQuantity < model.stock_quantity.toInt()) {
@@ -133,6 +140,17 @@ class CartItemsListAdapter(
                         )
                     }
                 }
+            }
+
+            holder.itemView.ib_delete_cart_item.setOnClickListener {
+
+                when (context) {
+                    is CartListActivity -> {
+                        context.showProgressDialog(context.resources.getString(R.string.please_wait))
+                    }
+                }
+
+                FirestoreClass().removeItemFromCart(context, model.id)
             }
         }
     }
