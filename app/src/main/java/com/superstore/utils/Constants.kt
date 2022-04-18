@@ -74,6 +74,8 @@ object Constants {
     const val ADD_ADDRESS_REQUEST_CODE: Int = 121
     //contant variable to pass the address details to the checkout screen through intent.
     const val EXTRA_SELECTED_ADDRESS: String = "extra_selected_address"
+    //constant for Orders collection.
+    const val ORDERS: String = "orders"
 
 
 

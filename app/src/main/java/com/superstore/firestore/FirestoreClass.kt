@@ -11,10 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.superstore.models.Address
-import com.superstore.models.Cart
-import com.superstore.models.Product
-import com.superstore.models.User
+import com.superstore.models.*
 import com.superstore.ui.activities.*
 import com.superstore.ui.fragments.DashboardFragment
 import com.superstore.ui.fragments.ProductsFragment
@@ -742,6 +739,38 @@ class FirestoreClass {
                 Log.e(
                     activity.javaClass.simpleName,
                     "Error while deleting the address.",
+                    e
+                )
+            }
+    }
+
+    /**
+     * A function to place an order of the user in the cloud firestore.
+     *
+     * @param activity base class
+     * @param order Order Info
+     */
+    fun placeOrder(activity: CheckoutActivity, order: Order) {
+
+        mFireStore.collection(Constants.ORDERS)
+            .document()
+            // Here the userInfo are Field and the SetOption is set to merge. It is for if we wants to merge
+            .set(order, SetOptions.merge())
+            .addOnSuccessListener {
+
+                //otify the success result.
+
+                // Here call a function of base activity for transferring the result to it.
+                activity.orderPlacedSuccess()
+                // END
+            }
+            .addOnFailureListener { e ->
+
+                // Hide the progress dialog if there is any error.
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while placing an order.",
                     e
                 )
             }
