@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.superstore.R
 import com.superstore.models.Address
 import com.superstore.ui.activities.AddEditAddressActivity
+import com.superstore.ui.activities.CheckoutActivity
 import com.superstore.utils.Constants
 import kotlinx.android.synthetic.main.item_address_layout.view.*
 
@@ -66,11 +67,9 @@ open class AddressListAdapter(
             //click event to the address item when user is about to select the address
             if (selectAddress) {
                 holder.itemView.setOnClickListener {
-                    Toast.makeText(
-                        context,
-                        "Selected address : ${model.address}, ${model.postCode}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    //direct user to check out activity
+                    val intent = Intent(context, CheckoutActivity::class.java)
+                    context.startActivity(intent)
                 }
             }
         }
