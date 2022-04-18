@@ -69,6 +69,8 @@ open class AddressListAdapter(
                 holder.itemView.setOnClickListener {
                     //direct user to check out activity
                     val intent = Intent(context, CheckoutActivity::class.java)
+                    //Pass the selected address through intent.
+                    intent.putExtra(Constants.EXTRA_SELECTED_ADDRESS, model)
                     context.startActivity(intent)
                 }
             }

@@ -72,6 +72,8 @@ object Constants {
     const val EXTRA_SELECT_ADDRESS: String = "extra_select_address"
     //global constant variable to notify the add address
     const val ADD_ADDRESS_REQUEST_CODE: Int = 121
+    //contant variable to pass the address details to the checkout screen through intent.
+    const val EXTRA_SELECTED_ADDRESS: String = "extra_selected_address"
 
 
 
