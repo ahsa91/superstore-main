@@ -76,6 +76,9 @@ object Constants {
     const val EXTRA_SELECTED_ADDRESS: String = "extra_selected_address"
     //constant for Orders collection.
     const val ORDERS: String = "orders"
+    //constant for Stock Quantity.
+    const val STOCK_QUANTITY: String = "stock_quantity"
+
 
 
 
