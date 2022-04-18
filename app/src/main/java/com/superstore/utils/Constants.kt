@@ -78,6 +78,8 @@ object Constants {
     const val ORDERS: String = "orders"
     //constant for Stock Quantity.
     const val STOCK_QUANTITY: String = "stock_quantity"
+    //constant for passing the order details through intent.
+    const val EXTRA_MY_ORDER_DETAILS: String = "extra_MY_ORDER_DETAILS"
 
 
 
