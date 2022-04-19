@@ -1,12 +1,15 @@
 package com.superstore.ui.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.superstore.R
 import com.superstore.models.SoldProduct
+import com.superstore.ui.activities.SoldProductDetailsActivity
+import com.superstore.utils.Constants
 import com.superstore.utils.GlideLoader
 import kotlinx.android.synthetic.main.item_list_layout.view.*
 
@@ -60,6 +63,12 @@ open class SoldProductsListAdapter(
             holder.itemView.tv_item_price.text = "€${model.price}"
 
             holder.itemView.ib_delete_product.visibility = View.GONE
+        }
+        //click event for sold product item.
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, SoldProductDetailsActivity::class.java)
+            intent.putExtra(Constants.EXTRA_SOLD_PRODUCT_DETAILS, model)
+            context.startActivity(intent)
         }
     }
 
