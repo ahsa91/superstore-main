@@ -30,6 +30,9 @@ class CheckoutActivity : BaseActivity() {
     // A global variable for the Total Amount.
     private var mTotalAmount: Double = 0.0
 
+    // A global variable for Order details.
+    private lateinit var mOrderDetails: Order
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_checkout)
@@ -183,7 +186,7 @@ class CheckoutActivity : BaseActivity() {
 
         //order details based on all the required details.
 
-        val order = Order(
+            mOrderDetails = Order(
             FirestoreClass().getCurrentUserID(),
             mCartItemsList,
             mAddressDetails!!,
@@ -199,7 +202,7 @@ class CheckoutActivity : BaseActivity() {
 
         // function to place the order in the cloud firestore.
 
-        FirestoreClass().placeOrder(this@CheckoutActivity, order)
+        FirestoreClass().placeOrder(this@CheckoutActivity, mOrderDetails)
 
     }
 
@@ -212,7 +215,7 @@ class CheckoutActivity : BaseActivity() {
      */
     fun orderPlacedSuccess() {
 
-        FirestoreClass().updateAllDetails(this@CheckoutActivity, mCartItemsList)
+        FirestoreClass().updateAllDetails(this@CheckoutActivity, mCartItemsList, mOrderDetails)
     }
 
     /**

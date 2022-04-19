@@ -783,9 +783,37 @@ class FirestoreClass {
      * @param activity Base class.
      * @param cartList List of cart items.
      */
-    fun updateAllDetails(activity: CheckoutActivity, cartList: ArrayList<Cart>) {
+    fun updateAllDetails(activity: CheckoutActivity, cartList: ArrayList<Cart>, order: Order) {
 
         val writeBatch = mFireStore.batch()
+
+        // Prepare the sold product details
+
+        for (cart in cartList) {
+
+            val soldProduct = SoldProduct(
+                // Here the user id will be of product owner.
+                cart.product_owner_id,
+                cart.title,
+                cart.price,
+                cart.cart_quantity,
+                cart.image,
+                order.title,
+                order.order_datetime,
+                order.sub_total_amount,
+                order.shipping_charge,
+                order.total_amount,
+                order.address
+            )
+
+            //Make an entry for sold product in cloud firestore.
+
+            val documentReference = mFireStore.collection(Constants.SOLD_PRODUCTS)
+                .document()
+            writeBatch.set(documentReference, soldProduct)
+
+        }
+
 
         // Here we will update the product stock in the products collection based to cart quantity.
         for (cart in cartList) {
@@ -811,18 +839,20 @@ class FirestoreClass {
 
         writeBatch.commit().addOnSuccessListener {
 
-            //  Finally after performing all the operation notify the user with the success result.
-
             activity.allDetailsUpdatedSuccessfully()
-
 
         }.addOnFailureListener { e ->
             // Here call a function of base activity for transferring the result to it.
             activity.hideProgressDialog()
 
-            Log.e(activity.javaClass.simpleName, "Error while updating all the details after order placed.", e)
+            Log.e(
+                activity.javaClass.simpleName,
+                "Error while updating all the details after order placed.",
+                e
+            )
         }
     }
+
 
     /**
      * A function to get the list of orders from cloud firestore.
@@ -844,9 +874,9 @@ class FirestoreClass {
                 }
 
                 // Notify the success result to base class.
-                // START
+
                 fragment.populateOrdersListInUI(list)
-                // END
+
             }
             .addOnFailureListener { e ->
                 // Here call a function of base activity for transferring the result to it.
