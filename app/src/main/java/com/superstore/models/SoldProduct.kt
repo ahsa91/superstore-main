@@ -4,7 +4,6 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 //data model class for Sold Product
 @Parcelize
-
 data class SoldProduct(
     val user_id: String = "",
     val title: String = "",

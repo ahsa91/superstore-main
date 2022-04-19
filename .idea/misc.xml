@@ -21,6 +21,7 @@
         <entry key="..\:/dev/superstore-main/app/src/main/res/drawable/ic_vector_orders.xml" value="0.218" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/drawable/ic_vector_products.xml" value="0.218" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/drawable/ic_vector_settings_24.xml" value="0.25" />
+        <entry key="..\:/dev/superstore-main/app/src/main/res/drawable/ic_vector_sold_products.xml" value="0.229" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/drawable/ic_white_color_back_24dp.xml" value="0.218" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/drawable/item_dashboard_background.xml" value="0.127" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/drawable/item_grey_border_background.xml" value="0.25" />
@@ -49,6 +50,7 @@
         <entry key="..\:/dev/superstore-main/app/src/main/res/layout/fragment_notifications.xml" value="0.18659420289855072" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/layout/fragment_orders.xml" value="0.32065217391304346" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/layout/fragment_products.xml" value="0.18659420289855072" />
+        <entry key="..\:/dev/superstore-main/app/src/main/res/layout/fragment_sold_products.xml" value="0.25416666666666665" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/layout/item_address_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/layout/item_cart_layout.xml" value="0.1" />
         <entry key="..\:/dev/superstore-main/app/src/main/res/layout/item_dashboard_layout.xml" value="0.264" />
