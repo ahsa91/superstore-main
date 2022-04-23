@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.myshoppal.ui.adapters.AddressListAdapter
+import com.superstore.ui.adapters.AddressListAdapter
 import com.superstore.R
 import com.superstore.firestore.FirestoreClass
 import com.superstore.models.Address

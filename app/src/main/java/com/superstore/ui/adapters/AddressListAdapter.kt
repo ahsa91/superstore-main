@@ -1,4 +1,4 @@
-package com.myshoppal.ui.adapters
+package com.superstore.ui.adapters
 
 import android.annotation.SuppressLint
 import android.app.Activity

@@ -84,4 +84,3 @@ open class SoldProductsListAdapter(
      */
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }
-// END
