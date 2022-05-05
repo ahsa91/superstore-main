@@ -193,7 +193,7 @@ class CheckoutActivity : BaseActivity() {
             "My order ${System.currentTimeMillis()}",
             mCartItemsList[0].image,
             mSubTotal.toString(),
-            "10.0", // The Shipping Charge is fixed as $10 for now in our case.
+            "10.0", // The Shipping Charge is fixed as 10 for now in our case.
             mTotalAmount.toString(),
             //set timestamp of order
             System.currentTimeMillis()
